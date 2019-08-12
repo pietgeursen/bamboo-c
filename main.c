@@ -46,4 +46,26 @@ int main(){
     printf("%x", out[i]);
   }
   printf("\n");
+
+
+  VerifyEd25519Blake2bEntryArgs verify_args = {
+    .payload_bytes = payload,
+    .payload_length = PAYLOAD_LENGTH,
+    .backlink_bytes = NULL,
+    .backlink_length =  0,
+    .lipmaalink_bytes = NULL,
+    .lipmaalink_length =  0,
+    .entry_bytes = out,
+    .entry_length = args.out_length,
+    .is_valid = false,
+  };
+  
+  intptr_t result2 = verify_ed25519_blake2b_entry(&verify_args);
+
+  if(result2 != 0){
+    printf("error verifying, error code: %li", result2);
+  }else{
+    printf("is valid: %i\n", verify_args.is_valid);
+  }
+
 }
