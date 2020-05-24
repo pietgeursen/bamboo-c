@@ -1,16 +1,17 @@
 CC=gcc
-CFLAGS=-I. -O2
+CFLAGS=-I. -pthread
 DEPS = libbamboo.h
 OBJ = main.o 
 LDIR =./lib
 
-LIBS = -lbamboo_core
+# The builds from travis need lib math (-lm) and lib dynamic library (-ldl)
+LIBS = -lbamboo_core -ldl -lm
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS) 
+	$(CC) -c -g0 -Os -o $@ $< $(CFLAGS) 
 
 main: $(OBJ)
-	$(CC) -Oz -o $@ $^ $(CFLAGS) -L $(LDIR) $(LIBS)
+	$(CC) -g0 -Os -o $@ $^ $(CFLAGS) -L $(LDIR) $(LIBS) $(CFLAGS)
 
 clean:
 	rm -rf *.o main
