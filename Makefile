@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-I.
+CFLAGS=-I. -O2
 DEPS = libbamboo.h
 OBJ = main.o 
 LDIR =./lib
