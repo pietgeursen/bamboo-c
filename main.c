@@ -44,6 +44,7 @@ int main(){
   };
 
   // Publish
+  printf("Publishing entry...\n");
   intptr_t result = publish_ed25519_blake2b_entry(&args);
 
   // Print info
@@ -52,7 +53,7 @@ int main(){
   for (intptr_t i = 0; i < args.out_length; i++){
     printf("%x", out[i]);
   }
-  printf("\n");
+  printf("\n\n");
 
 
   // Decode the entry
@@ -64,6 +65,8 @@ int main(){
 
   Error e = decode_ed25519_blake2b_entry(&decode_args);
 
+
+  printf("Decoding entry...\n");
   if(e != 0){
     printf("error decoding, error code: %i", e);
   }else{
@@ -73,6 +76,7 @@ int main(){
     printf("is_end_of_feed: %i \n", decode_args.out_decoded_entry.is_end_of_feed);
     printf("payload_length: %li \n", decode_args.out_decoded_entry.payload_length);
   }
+  printf("\n\n");
 
   // Verify the entry
   VerifyEd25519Blake2bEntryArgs verify_args = {
@@ -86,6 +90,7 @@ int main(){
     .entry_length = args.out_length,
   };
   
+  printf("Verifying entry...\n");
   intptr_t result2 = verify_ed25519_blake2b_entry(&verify_args);
 
   if(result2 != 0){
@@ -93,7 +98,5 @@ int main(){
   }else{
     printf("entry is valid!!\n");
   }
-
-
 
 }
